@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HINA — Privacy and support</title>
+<style>
+  :root { --ink: #1a1a1a; --soft: #5a5a5a; --line: #e6e6e6; --accent: #e07a5f; --bg: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --ink: #f1f1f1; --soft: #b5b5b5; --line: #333; --bg: #121212; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Segoe UI", sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 32px 0 8px; }
+  p, li { color: var(--ink); }
+  .soft { color: var(--soft); }
+  ul { padding-left: 20px; }
+  a { color: var(--accent); }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 32px 0; }
+</style>
+</head>
+<body>
+<main>
+<h1>HINA</h1>
+<p class="soft">A private messenger for one family, in English and Japanese. Privacy policy and support — last updated 27 September 2026.</p>
+
+<h2>Contact</h2>
+<p>Questions, problems, or a request about your data: <a href="mailto:cannula_storm_8n@icloud.com">cannula_storm_8n@icloud.com</a>. You can also report a message or block someone from inside HINA; reports go to the family's owner.</p>
+
+<h2>The short version</h2>
+<ul>
+  <li>Your messages, photos, videos and voice notes are end-to-end encrypted: our server stores them but cannot read them.</li>
+  <li>To translate a message, its text is sent to Anthropic's Claude through HINA's own server. Anthropic's commercial terms say it may not train its models on that content.</li>
+  <li>No ads, no tracking, no selling of data. HINA is invite-only.</li>
+  <li>You can delete your account, and everything you sent, from Settings.</li>
+</ul>
+
+<h2>What HINA keeps, and where</h2>
+<ul>
+  <li><strong>Your account</strong> — the name and language you choose, your public keys, and your Sign in with Apple identifier (Apple may give us a private relay email instead of your real one). Stored in HINA's database (Supabase).</li>
+  <li><strong>Messages</strong> — encrypted on your phone before they leave it, and signed so nobody can pretend to be you. The server holds only the encrypted form, who sent it, when, and to which chat.</li>
+  <li><strong>Photos, videos and voice notes</strong> — encrypted on your phone and stored encrypted in Cloudflare R2. Photo and video files are deleted from the server once everyone has them, or after 30 days.</li>
+  <li><strong>Your profile picture, settings, and where you roughly are</strong> — encrypted so only the people in your chats can read them. Your location is only read while HINA is open, rounded to about 10 km before it leaves your phone, and used to show your weather in your chats.</li>
+  <li><strong>Notifications</strong> — sent through Apple's push service. The message inside is encrypted and only turned into text on the receiving phone.</li>
+  <li><strong>Crash reports</strong> — errors are sent to Sentry with message content removed.</li>
+  <li><strong>Backups</strong> — the database is backed up nightly; the backups hold messages only in their encrypted form.</li>
+</ul>
+
+<h2>Services HINA uses</h2>
+<ul>
+  <li><strong>Anthropic</strong> (translation): the text of a message, and recent messages in that chat for context, pass through HINA's server to Anthropic to be translated. HINA's server does not store that text; it records only how much translation was used.</li>
+  <li><strong>Open-Meteo</strong> (weather): your phone asks Open-Meteo for the weather at the other person's rounded location. Weather data by Open-Meteo.com (CC BY 4.0).</li>
+  <li><strong>GIPHY</strong> (GIFs): GIF searches pass through HINA's server to GIPHY, without your identity.</li>
+  <li><strong>Link previews</strong>: when a message contains a link, the phone showing it fetches a preview straight from that website, as other messaging apps do.</li>
+  <li><strong>Apple</strong> (sign-in, notifications), <strong>Supabase</strong> (database), <strong>Cloudflare</strong> (encrypted file storage), <strong>Sentry</strong> (crash reports without content).</li>
+</ul>
+
+<h2>Deleting your account</h2>
+<p>Settings → Delete account. Everything you sent or set is erased for everyone — messages, photos, videos, voice notes, reactions, your picture, settings and location — your Apple sign-in for HINA is revoked, and you leave every chat. What remains is an anonymous record of your public encryption keys, with no name, so that the rest of the family can still open their chat history.</p>
+
+<h2>Children</h2>
+<p>HINA is for one family, by invitation. Anyone under 13 should use it only with a parent's agreement.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, the date at the top changes too.</p>
+
+<hr>
+<p class="soft">HINA（ヒナ）は一つの家族のための、英語と日本語のプライベートメッセンジャーです。メッセージ・写真・動画・ボイスメッセージはエンドツーエンドで暗号化され、サーバーでは読めません。翻訳のためにメッセージの文章はHINAのサーバーを通じてAnthropicへ送られます（Anthropicはその内容でモデルを学習しない規約です）。広告・追跡・データの販売はありません。アカウントは設定からいつでも削除でき、あなたが送ったものはすべて消去されます。お問い合わせ：<a href="mailto:cannula_storm_8n@icloud.com">cannula_storm_8n@icloud.com</a></p>
+</main>
+</body>
+</html>
