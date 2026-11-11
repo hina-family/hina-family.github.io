@@ -21,15 +21,16 @@
 <body>
 <main>
 <h1>HINA</h1>
-<p class="soft">A private messenger for one family, in English and Japanese. Privacy policy and support — last updated 27 September 2026.</p>
+<p class="soft">A private messenger for one family, in English and Japanese. Privacy policy and support — last updated 11 November 2026.</p>
 
 <h2>Contact</h2>
 <p>Questions, problems, or a request about your data: <a href="mailto:cannula_storm_8n@icloud.com">cannula_storm_8n@icloud.com</a>. You can also report a message or block someone from inside HINA; reports go to the family's owner.</p>
 
 <h2>The short version</h2>
 <ul>
-  <li>Your messages, photos, videos and voice notes are end-to-end encrypted: our server stores them but cannot read them.</li>
-  <li>To translate a message, its text is sent to Anthropic's Claude through HINA's own server. Anthropic's commercial terms say it may not train its models on that content.</li>
+  <li>Your messages, photos, videos and voice notes are end-to-end encrypted: they are locked on your phone before they leave it, and HINA's database and file storage hold them but cannot read them.</li>
+  <li>There are two exceptions, and they are what HINA is for. To translate a message, its text is sent in readable form through HINA's server to Anthropic. To read a message aloud, its text is sent through HINA's server to a voice service (Google, or ElevenLabs for a voice you made yourself). HINA's server passes the text on and does not keep it.</li>
+  <li>A few features ask another service directly from your phone: weather, GIFs, word lookups and link previews. Each is listed below with what it is sent.</li>
   <li>No ads, no tracking, no selling of data. HINA is invite-only.</li>
   <li>You can delete your account, and everything you sent, from Settings.</li>
 </ul>
@@ -37,25 +38,36 @@
 <h2>What HINA keeps, and where</h2>
 <ul>
   <li><strong>Your account</strong> — the name and language you choose, your public keys, and your Sign in with Apple identifier (Apple may give us a private relay email instead of your real one). Stored in HINA's database (Supabase).</li>
-  <li><strong>Messages</strong> — encrypted on your phone before they leave it, and signed so nobody can pretend to be you. The server holds only the encrypted form, who sent it, when, and to which chat.</li>
-  <li><strong>Photos, videos and voice notes</strong> — encrypted on your phone and stored encrypted in Cloudflare R2. Photo and video files are deleted from the server once everyone has them, or after 30 days.</li>
+  <li><strong>Messages</strong> — encrypted on your phone before they leave it, and signed so nobody can pretend to be you. The database holds only the encrypted form, who sent it, when, and to which chat. Translations are stored the same way, encrypted.</li>
+  <li><strong>Photos, videos and voice notes</strong> — encrypted on your phone and stored encrypted in Cloudflare R2. Photo and video files are deleted from the server once everyone has them, or after 30 days, unless someone adds them to the chat's album. Voice notes, album items and thumbnails are kept.</li>
   <li><strong>Your profile picture, settings, and where you roughly are</strong> — encrypted so only the people in your chats can read them. Your location is only read while HINA is open, rounded to about 10 km before it leaves your phone, and used to show your weather in your chats.</li>
-  <li><strong>Notifications</strong> — sent through Apple's push service. The message inside is encrypted and only turned into text on the receiving phone.</li>
-  <li><strong>Crash reports</strong> — errors are sent to Sentry with message content removed.</li>
-  <li><strong>Backups</strong> — the database is backed up nightly; the backups hold messages only in their encrypted form.</li>
+  <li><strong>Notifications</strong> — sent through Apple's push service. The message inside is encrypted and only turned into text on the receiving phone. Apple sees that a notification was sent, to which phone, and when.</li>
+  <li><strong>Error reports</strong> — when something fails, a report goes to Sentry: what failed, error codes, counts, timings, the ids of the account, chat or message involved, and your phone's model and iOS version. Message content is removed before a report leaves the phone.</li>
+  <li><strong>Backups</strong> — the database is backed up every night, encrypted again, and stored in Cloudflare R2. Backups hold messages only in their encrypted form. They are kept for up to 12 months.</li>
+  <li><strong>On your phone only</strong> — voice notes are turned into text, and text in a photo is read, by your iPhone itself; the audio and the photo are not sent anywhere for that.</li>
 </ul>
 
-<h2>Services HINA uses</h2>
+<h2>Who receives what</h2>
+<p>Every service that receives anything from HINA, what it is sent, and when.</p>
 <ul>
-  <li><strong>Anthropic</strong> (translation): the text of a message, and recent messages in that chat for context, pass through HINA's server to Anthropic to be translated. HINA's server does not store that text; it records only how much translation was used.</li>
-  <li><strong>Open-Meteo</strong> (weather): your phone asks Open-Meteo for the weather at the other person's rounded location. Weather data by Open-Meteo.com (CC BY 4.0).</li>
-  <li><strong>GIPHY</strong> (GIFs): GIF searches pass through HINA's server to GIPHY, without your identity.</li>
-  <li><strong>Link previews</strong>: when a message contains a link, the phone showing it fetches a preview straight from that website, as other messaging apps do.</li>
-  <li><strong>Apple</strong> (sign-in, notifications), <strong>Supabase</strong> (database), <strong>Cloudflare</strong> (encrypted file storage), <strong>Sentry</strong> (crash reports without content).</li>
+  <li><strong>Anthropic</strong> (translation and explanations) — <em>what:</em> the text of the message, a few recent messages from the same chat for context, and that chat's own notes on how you talk and which words you use. <em>When:</em> when a message is sent or needs translating, when you ask for a word-by-word breakdown or an explanation, when notes on how you talk are brought up to date, and when a message is about to be read in someone's own voice (to mark its tone). If you bring in chat history from another app, small copies of your own photos may be sent to match them to the right place. It all goes through HINA's server, which does not store the text and records only how much was used. Anthropic's commercial terms say it may not train its models on this content.</li>
+  <li><strong>Google Cloud Text-to-Speech</strong> (reading aloud) — <em>what:</em> the text of the one message being read. <em>When:</em> when you tap to hear a message in the standard voice. Through HINA's server, without your identity.</li>
+  <li><strong>ElevenLabs</strong> (your own voice, only if you make one) — <em>what:</em> the voice recording you make in Settings → My voice, once, labelled with your display name and language; after that, the text of a message you wrote, each time someone in your chat has it read in your voice. <em>When:</em> only if you choose to make a voice. HINA's server does not keep the recording. The voice is deleted from ElevenLabs when you delete your account.</li>
+  <li><strong>Open-Meteo</strong> (weather) — <em>what:</em> the rounded location (about 10 km) of a person in your chat. <em>When:</em> while a chat is open, the phone showing it asks Open-Meteo directly, so Open-Meteo also sees that phone's internet address. Weather data by Open-Meteo.com (CC BY 4.0).</li>
+  <li><strong>GIPHY</strong> (GIFs) — <em>what:</em> your search words go through HINA's server, without your identity. The GIF pictures themselves are loaded by your phone straight from GIPHY, which therefore sees your phone's internet address and which GIF it asked for. <em>When:</em> when you open the GIF picker, and when a chat shows a GIF.</li>
+  <li><strong>jisho.org</strong> (dictionary) — <em>what:</em> the one word you tapped, never the message. <em>When:</em> when you tap a Japanese word to look it up. Asked directly by your phone.</li>
+  <li><strong>WaniKani</strong> (only if you connect it) — <em>what:</em> your own WaniKani access token, to read which kanji you have learned. No message text. <em>When:</em> after you enter the token in Settings, and from time to time to refresh. The token stays on your phone.</li>
+  <li><strong>Websites you link to</strong> (link previews) — <em>what and when:</em> when you send a message containing a link, your phone fetches that page once to read its title and picture address, and seals them into the message. When the message is shown, each reader's phone loads the preview picture from that website, which therefore sees that phone's internet address and the time. The link never passes through HINA's server.</li>
+  <li><strong>Apple</strong> — Sign in with Apple; the push notification service (above); and, if you delete your account, a request to revoke HINA's sign-in.</li>
+  <li><strong>Supabase</strong> — runs HINA's database and server. It holds the encrypted data described above, and the text sent for translation or reading aloud passes through the server it runs.</li>
+  <li><strong>Cloudflare</strong> — stores the encrypted files and the encrypted backups.</li>
+  <li><strong>GitHub</strong> — the nightly backup is made by an automated job there, which encrypts it before it is stored.</li>
+  <li><strong>Sentry</strong> — error reports without content (above).</li>
+  <li><strong>Anki</strong> (only if you use it) — when you tap Add to Anki, the word and its sentence are handed to the Anki app on your own phone.</li>
 </ul>
 
 <h2>Deleting your account</h2>
-<p>Settings → Delete account. Everything you sent or set is erased for everyone — messages, photos, videos, voice notes, reactions, your picture, settings and location — your Apple sign-in for HINA is revoked, and you leave every chat. What remains is an anonymous record of your public encryption keys, with no name, so that the rest of the family can still open their chat history.</p>
+<p>Settings → Delete account. Deleting waits seven days: you ask (with Face ID or your passcode), you can cancel during those seven days, and after them you confirm with Delete now. Then everything you sent or set is erased for everyone — messages, photos, videos, voice notes, reactions, your picture, settings and location — your own voice, if you made one, is deleted from ElevenLabs, your Apple sign-in for HINA is revoked, and you leave every chat. What remains is an anonymous record of your public encryption keys, with no name, so that the rest of the family can still open their chat history. Encrypted backups made before the deletion are kept until they expire, at most 12 months.</p>
 
 <h2>Children</h2>
 <p>HINA is for one family, by invitation. Anyone under 13 should use it only with a parent's agreement.</p>
@@ -64,7 +76,9 @@
 <p>If this policy changes, the date at the top changes too.</p>
 
 <hr>
-<p class="soft">HINA（ヒナ）は一つの家族のための、英語と日本語のプライベートメッセンジャーです。メッセージ・写真・動画・ボイスメッセージはエンドツーエンドで暗号化され、サーバーでは読めません。翻訳のためにメッセージの文章はHINAのサーバーを通じてAnthropicへ送られます（Anthropicはその内容でモデルを学習しない規約です）。広告・追跡・データの販売はありません。アカウントは設定からいつでも削除でき、あなたが送ったものはすべて消去されます。お問い合わせ：<a href="mailto:cannula_storm_8n@icloud.com">cannula_storm_8n@icloud.com</a></p>
+<p class="soft">HINA（ヒナ）は一つの家族のための、英語と日本語のプライベートメッセンジャーです（最終更新：2026年11月11日）。メッセージ・写真・動画・ボイスメッセージはエンドツーエンドで暗号化され、HINAのデータベースと保存先では読めません。例外は二つです。翻訳のために、メッセージの文章（と同じチャットの直前の数件、話し方のメモ）はHINAのサーバーを通じてAnthropicへ送られます（Anthropicはその内容でモデルを学習しない規約です）。読み上げのために、そのメッセージの文章はHINAのサーバーを通じてGoogleの音声サービスへ、ご自分の声を作った場合はElevenLabsへ送られます（声を作るときの録音も一度だけElevenLabsへ送られます）。HINAのサーバーはその文章を保存しません。</p>
+<p class="soft">お使いのiPhoneから直接問い合わせるものもあります。天気はOpen-Meteoへ（相手の約10kmに丸めた位置）、GIFの画像はGIPHYから、タップした単語一つはjisho.orgへ、WaniKaniは接続した場合のみ（ご自分のトークン）、リンクのプレビューはそのウェブサイトから（送る人のiPhoneがページを一度読み、読む人のiPhoneがプレビュー画像を読み込みます）。これらの相手にはiPhoneのIPアドレスが見えます。通知はAppleを通じて暗号化されたまま届きます。不具合の報告はメッセージの内容を除いてSentryへ送られます。暗号化されたデータはSupabaseとCloudflareに保存され、毎晩のバックアップは最長12か月保管されます。</p>
+<p class="soft">広告・追跡・データの販売はありません。アカウントは設定から削除できます。削除は申請から7日後に確定でき（その間は取り消せます）、あなたが送ったものはすべて消去されます。お問い合わせ：<a href="mailto:cannula_storm_8n@icloud.com">cannula_storm_8n@icloud.com</a></p>
 </main>
 </body>
 </html>
