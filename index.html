@@ -21,23 +21,24 @@
 <body>
 <main>
 <h1>HINA</h1>
-<p class="soft">A messenger for people who speak English and Japanese with each other, with tools for learning the other language. Privacy policy and support — last updated 15 November 2026.</p>
+<p class="soft">A messenger for people who speak English and Japanese with each other, with tools for learning the other language. Privacy policy and support — last updated 21 November 2026.</p>
 
 <h2>Contact</h2>
 <p>Questions, problems, or a request about your data: <a href="mailto:cannula_storm_8n@icloud.com">cannula_storm_8n@icloud.com</a>. You can also report a message or block someone from inside HINA; reports go to HINA's moderator.</p>
 
 <h2>The short version</h2>
 <ul>
-  <li>Your messages are kept on HINA's own server, protected by your sign-in. Only the people in a chat can read it. The person who runs HINA runs that server and could read what is stored there. Photos, videos and voice notes are stored encrypted.</li>
+  <li>Messages are not end-to-end encrypted. They're stored on HINA's own server, protected by your sign-in and access rules, so only the people in a chat can open them in the app. HINA uses message text only to deliver it, show it in notifications and translate it, and looks at a message only if someone reports it. Photo, video and voice files are each stored encrypted.</li>
   <li>Two things leave HINA's server, and they are what HINA is for. To translate a message, its text is sent through HINA's server to Anthropic. To write out what a voice message says, when the person who received it taps Transcribe, that one voice message is sent through HINA's server to ElevenLabs.</li>
   <li>A few features ask another service directly from your phone: weather, GIFs, word lookups and link previews. Each is listed below with what it is sent.</li>
-  <li>No ads, no tracking, no selling of data. HINA is invite-only.</li>
+  <li>Anyone can join with Sign in with Apple. People find each other by typing an exact HINA name; there is no list of people to browse. You can block someone, which also stops them finding you by name or starting a new chat with you, and report a message or a person to HINA's moderator.</li>
+  <li>No ads, no tracking, no selling of data.</li>
   <li>You can delete your account, and everything you sent, from Settings.</li>
 </ul>
 
 <h2>What HINA keeps, and where</h2>
 <ul>
-  <li><strong>Your account</strong> — the name and language you choose, and your Sign in with Apple identifier (Apple may give us a private relay email instead of your real one). Stored in HINA's database (Supabase).</li>
+  <li><strong>Your account</strong> — the name and language you choose, your HINA name if you set one, and your Sign in with Apple identifier (Apple may give us a private relay email instead of your real one). Stored in HINA's database (Supabase). Someone who types your exact HINA name sees your name and language, and can start a chat with you unless one of you has blocked the other.</li>
   <li><strong>Messages</strong> — stored in HINA's database as readable text, with who sent each one, when, and to which chat. The database only gives a chat's messages to the signed-in people in that chat. Translations, reactions, corrections and the chat's notes on how you talk are stored the same way. Until version 1.0.1 messages were end-to-end encrypted; the app converts that earlier history to the readable form the first time it opens.</li>
   <li><strong>Photos, videos and voice notes</strong> — each file is encrypted on your phone and stored encrypted in Cloudflare R2; its key is kept with the message it belongs to, in HINA's database. Photo and video files are deleted from the server once everyone has them, or after 30 days, unless someone adds them to the chat's album. Voice notes, album items and thumbnails are kept.</li>
   <li><strong>Your profile picture, settings, and where you roughly are</strong> — stored in HINA's database, readable only by you and the people in your chats. Your location is only read while HINA is open, rounded to about 10 km before it leaves your phone, and used to show your weather in your chats.</li>
@@ -69,13 +70,13 @@
 <p>Settings → Delete account. Deleting waits seven days: you ask, you can cancel during those seven days, and after them you confirm with Delete now. Then everything you sent or set is erased for everyone — messages, photos, videos, voice notes, reactions, your picture, settings and location — your own voice, if you made one, is deleted from ElevenLabs, your Apple sign-in for HINA is revoked, and you leave every chat. Two things that belong to the chat rather than to you also stay: the chat's shared word list, and a photo someone else sent that you added to the album. Encrypted backups made before the deletion are kept until they expire, at most 12 months.</p>
 
 <h2>Children</h2>
-<p>HINA is joined by invitation. Anyone under 13 should use it only with a parent's agreement.</p>
+<p>Anyone can join HINA with Sign in with Apple. Anyone under 13 should use it only with a parent's agreement.</p>
 
 <h2>Changes</h2>
 <p>If this policy changes, the date at the top changes too.</p>
 
 <hr>
-<p class="soft">HINA（ヒナ）は、英語と日本語で話す人たちのためのメッセンジャーで、相手の言葉を学ぶための機能もあります（最終更新：2026年11月15日）。メッセージはHINA自身のサーバーに保存され、サインインで守られています。読めるのはそのチャットの参加者だけです（HINAを運営している人はサーバーを管理しており、保存された内容を見ることができます）。写真・動画・ボイスメッセージは暗号化して保存されます。HINAのサーバーの外へ出るものは二つです。翻訳のために、メッセージの文章（と同じチャットの直前の数件、話し方のメモ）はHINAのサーバーを通じてAnthropicへ送られます（Anthropicはその内容でモデルを学習しない規約です）。ボイスメッセージを文字に起こすために、受け取った人が「文字に起こす」をタップしたときだけ、そのボイスメッセージ一件がHINAのサーバーを通じてElevenLabsへ送られます。</p>
+<p class="soft">HINA（ヒナ）は、英語と日本語で話す人たちのためのメッセンジャーで、相手の言葉を学ぶための機能もあります（最終更新：2026年11月21日）。Sign in with Appleで誰でも参加できます。相手はHINAネームを正確に入力して見つけます（人の一覧はありません）。相手をブロックすると、その人はあなたを名前で見つけられず、新しいチャットも始められなくなります。メッセージや相手はアプリからHINAの管理者に報告できます。メッセージはエンドツーエンド暗号化されていません。HINA自身のサーバーに保存され、サインインとアクセスのルールで守られているので、アプリで開けるのはそのチャットの参加者だけです。HINAがメッセージの文章を使うのは、届ける・通知に表示する・翻訳するためだけで、メッセージを見るのは誰かが報告したときだけです。写真・動画・ボイスメッセージのファイルは一つずつ暗号化して保存されます。HINAのサーバーの外へ出るものは二つです。翻訳のために、メッセージの文章（と同じチャットの直前の数件、話し方のメモ）はHINAのサーバーを通じてAnthropicへ送られます（Anthropicはその内容でモデルを学習しない規約です）。ボイスメッセージを文字に起こすために、受け取った人が「文字に起こす」をタップしたときだけ、そのボイスメッセージ一件がHINAのサーバーを通じてElevenLabsへ送られます。</p>
 <p class="soft">お使いのiPhoneから直接問い合わせるものもあります。天気はOpen-Meteoへ（相手の約10kmに丸めた位置）、GIFの画像はGIPHYから、タップした単語一つはjisho.orgへ、WaniKaniは接続した場合のみ（ご自分のトークン）、リンクのプレビューはそのウェブサイトから（送る人のiPhoneがページを一度読み、読む人のiPhoneがプレビュー画像を読み込みます）。これらの相手にはiPhoneのIPアドレスが見えます。通知はAppleを通じて届き、送った人の名前とメッセージの文章を含みます（設定で文章を隠せます）。不具合の報告はメッセージの内容を除いてSentryへ送られます。データはSupabaseに、暗号化されたファイルとバックアップはCloudflareに保存され、毎晩のバックアップは最長12か月保管されます。</p>
 <p class="soft">広告・追跡・データの販売はありません。アカウントは設定から削除できます。削除は申請から7日後に確定でき（その間は取り消せます）、あなたが送ったものはすべて消去されます。お問い合わせ：<a href="mailto:cannula_storm_8n@icloud.com">cannula_storm_8n@icloud.com</a></p>
 </main>
